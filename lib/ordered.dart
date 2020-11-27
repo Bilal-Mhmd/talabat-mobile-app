@@ -36,7 +36,7 @@ class _OrderedState extends State<OrderedList> {
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.yellow[500],
-            title: Text('Ordered Items',style: TextStyle(fontSize: 19, color: Colors.black)),
+            title: Text('Ordered List',style: TextStyle(fontSize: 19, color: Colors.black)),
           actions: [
             RaisedButton(
                 color: Colors.yellow[600],
