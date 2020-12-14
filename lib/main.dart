@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant/loadingMenus.dart';
 import 'package:restaurant/menuItemsModel.dart';
 import 'package:restaurant/welcomeLoadingScreen.dart';
-import 'menuItems.dart';
 
 void main() {
   runApp(MyApp());

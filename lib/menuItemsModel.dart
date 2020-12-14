@@ -1,37 +1,54 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
+import 'package:restaurant/restaurant.dart';
 import 'dish.dart';
 
 class MenuItemsModel extends ChangeNotifier {
   List<Dish> favoriteDishes = [];
-  List<Dish> dishes = [];
+  List<Dish> _dishes = [];
   List<Dish> orderedDishes = [];
+  List<Restaurant> _restaurants = [];
 
   void setDishes(List<Dish> dish) {
-    this.dishes = dish;
-
-    // for (int i = 0; i < this.dishes.length; i++) {
-    //   this.favoriteDishes.forEach((element) {
-    //     if ((dishes[i].id == element.id) &&
-    //         (dishes[i].rest_id == element.rest_id)) {
-    //       // this.dishes[i].isFavorite = true;
-    //     }
-    //   });
-    // }
-    // notifyListeners();
+    this._dishes = dish;
   }
 
-  bool cheak(Dish dish) {
-    bool flag = false;
-    this.favoriteDishes.forEach((element) {
-      if ((dish.id == element.id) && (dish.rest_id == element.rest_id)) {
-        flag = true;
+  void setRestaurants(List<Restaurant> restaurants) {
+    List<Restaurant> rest = filter(restaurants);
+    this._restaurants = rest;
+  }
+
+  List<Restaurant> filter(List<Restaurant> list) {
+    int city = 0;
+
+    for (int i = 0; i < list.length; i++) {
+      if (list[i].city == 'Hebron') {
+        city = 10;
+      } else {
+        city = 5;
       }
-    });
-    return flag;
+      list[i].weight = (list[i].rating + city) / 2;
+    }
+
+    list.sort((a, b) => b.weight.compareTo(a.weight));
+    return list;
+  }
+
+  bool cheakFavorite(Dish dish) {
+    return this.favoriteDishes.indexOf(dish) != -1 ? true : false;
   }
 
   List<Dish> getFavoriteDishes() {
     return favoriteDishes;
+  }
+
+  List<Restaurant> getRestaurants() {
+    return this._restaurants;
+  }
+
+  List<Dish> getDishes() {
+    return this._dishes;
   }
 
   List<Dish> getOrderedDihes() {
@@ -39,7 +56,7 @@ class MenuItemsModel extends ChangeNotifier {
   }
 
   void orderDish(Dish dish) {
-    this.orderedDishes.add(dish);
+    orderedDishes.add(dish);
     notifyListeners();
   }
 
@@ -68,5 +85,15 @@ class MenuItemsModel extends ChangeNotifier {
       this.favoriteDishes.remove(dish);
     }
     notifyListeners();
+  }
+
+  String findRest(int restId) {
+    String restName = 'Unknown Restaurant';
+    for (int i = 0; i < _restaurants.length; i++) {
+      if (_restaurants[i].id == restId) {
+        restName = _restaurants[i].name;
+      }
+    }
+    return restName;
   }
 }

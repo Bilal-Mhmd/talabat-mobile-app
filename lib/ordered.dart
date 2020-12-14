@@ -1,21 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant/main.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:toast/toast.dart';
 import 'dish.dart';
+import 'item.dart';
+import 'favoriteList.dart';
 import 'menuItemsModel.dart';
 
 class OrderedList extends StatefulWidget {
-  // final List<Dish> orderedDishes;
-  // OrderedList({this.orderedDishes}) : super();
-
   @override
   _OrderedState createState() => _OrderedState();
 }
 
 class _OrderedState extends State<OrderedList> {
-  // List<Dish> orderedDishes;
   _OrderedState();
 
   double _calculate() {
@@ -36,14 +33,40 @@ class _OrderedState extends State<OrderedList> {
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.yellow[500],
-            title: Text('Ordered List',style: TextStyle(fontSize: 19, color: Colors.black)),
+          title: Text('  Ordered List',
+              style: TextStyle(fontSize: 19, color: Colors.black)),
           actions: [
             RaisedButton(
-                color: Colors.yellow[600],
+                color: Colors.yellow[800],
                 hoverColor: Colors.yellow[500],
                 splashColor: Colors.yellow[500],
                 focusColor: Colors.yellow[400],
-                child: Text(' Go to Menu Page', style: TextStyle(fontSize: 19, color: Colors.black)),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.favorite_border,
+                      size: 20,
+                    ),
+                    Text(' Favorite List',
+                        style: TextStyle(fontSize: 17)),
+                  ],
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FavoriteList(),
+                    ),
+                  );
+                }),
+            RaisedButton(
+                color: Colors.yellow[800],
+                hoverColor: Colors.yellow[500],
+                splashColor: Colors.yellow[500],
+                focusColor: Colors.yellow[400],
+                child: Text(' Back ',
+                    style: TextStyle(fontSize: 17,)),
                 onPressed: () {
                   Navigator.pop(context);
                 }),
@@ -58,7 +81,7 @@ class _OrderedState extends State<OrderedList> {
                       .getOrderedDihes()
                       .length,
                   itemBuilder: (BuildContext context, int index) {
-                    return MenuItem(
+                    return OrderedItem(
                       dish: Provider.of<MenuItemsModel>(context, listen: false)
                           .getOrderedDihes()[index],
                     );
@@ -86,81 +109,63 @@ class _OrderedState extends State<OrderedList> {
   }
 }
 
-class MenuItem extends StatelessWidget {
+class OrderedItem extends StatelessWidget {
   final Dish dish;
-  // final VoidCallback deleteItem;
 
-  MenuItem({@required this.dish});
+  OrderedItem({@required this.dish});
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return Container(
       child: Column(
         children: [
-          Row(
-            children: [
-              Image.asset(
-                'assets/images/' + this.dish.image,
-                width: 100,
+          Container(
+            margin: EdgeInsetsDirectional.fromSTEB(0, 9, 0, 0),
+            width: double.infinity,
+            color: Colors.yellow,
+            child: Center(
+              child: Text(
+                '${Provider.of<MenuItemsModel>(context, listen: false).findRest(dish.rest_id)}',
               ),
-              Expanded(
-                  child: Container(
-                padding: EdgeInsets.fromLTRB(20, 5, 5, 0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      this.dish.title,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(this.dish.description),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            alignment: Alignment.centerRight,
-                              //double.parse('${this.dish.rating}')
-                            child: SmoothStarRating(
-                                allowHalfRating: false,
-                                onRated: (v) {},
-                                starCount: 10,
-                                rating: 7,
-                                size: 23.0,
-                                isReadOnly: true,
-                                filledIconData: Icons.star,
-                                defaultIconData: Icons.star_border,
-                                color: Colors.yellowAccent[700],
-                                borderColor: Colors.yellowAccent[700],
-                                spacing: 0.0)
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ))
-            ],
+            ),
           ),
+          Item(
+            title: dish.title,
+            image: dish.image,
+            rating: dish.rating,
+            description: dish.description,
+          ),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              RaisedButton(
-                child: Text('delete'),
-                color: Colors.amber[800],
-                textColor: Colors.white,
-                onPressed: () {
-                  Provider.of<MenuItemsModel>(context, listen: false)
-                      .unOrderDish(dish);
-                },
+              Container(
+                margin: EdgeInsetsDirectional.fromSTEB(0, 0, 5, 1),
+                child: RaisedButton(
+                  child: Text('    delete     '),
+                  color: Colors.red,
+                  hoverColor: Colors.yellow[400],
+                  splashColor: Colors.yellow[400],
+                  focusColor: Colors.yellow[400],
+                  textColor: Colors.white,
+                  onPressed: () {
+                    Provider.of<MenuItemsModel>(context, listen: false)
+                        .unOrderDish(dish);
+                  },
+                ),
               ),
-              RaisedButton(
-
-                child: Text('Confirm'),
-                color: Colors.amber,
-                textColor: Colors.white,
-                onPressed: () {
-                  print('confirmed successfully');
-                },
+              Container(
+                margin: EdgeInsetsDirectional.fromSTEB(5, 0, 7, 1),
+                child: RaisedButton(
+                  child: Text('   Confirm   '),
+                  color: Colors.amber[900],
+                  hoverColor: Colors.yellow[400],
+                  splashColor: Colors.yellow[400],
+                  focusColor: Colors.yellow[400],
+                  textColor: Colors.white,
+                  onPressed: () {
+                    Toast.show('Order sent Successfuly', context, duration: 2);
+                  },
+                ),
               ),
             ],
           ),

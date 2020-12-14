@@ -4,8 +4,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:restaurant/menuItemsModel.dart';
-import 'package:restaurant/test.dart';
-import 'package:toast/toast.dart';
 import 'dish.dart';
 import 'menuItems.dart';
 
@@ -26,16 +24,11 @@ class _LoadingState extends State<LoadingMenus> {
         await http.get("http://appback.ppu.edu/menus/$id");
 
     if (response.statusCode == 200) {
-      // success, parse json data
       var jsonArray = jsonDecode(response.body) as List;
       print(jsonArray[0]);
-      // dishes.add(Dish.fromJson(jsonArray[0]));
       dishes = jsonArray.map((e) => Dish.fromJson(e)).toList();
-      // print(dishes.length);
       Provider.of<MenuItemsModel>(context, listen: false).setDishes(dishes);
-      // return dishes;
     } else {
-      print('failed to connect to internet');
       throw Exception("Failed to load data");
     }
 
@@ -55,7 +48,7 @@ class _LoadingState extends State<LoadingMenus> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[900],
+      backgroundColor: Colors.orange[900],
       body: Center(
         child: SpinKitPouringHourglass(
           color: Colors.white,
