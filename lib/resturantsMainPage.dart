@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:restaurant/item.dart';
 import 'package:restaurant/favoriteList.dart';
 import 'package:restaurant/loadingMenus.dart';
+import 'package:restaurant/map.dart';
 import 'package:restaurant/menuItemsModel.dart';
 import 'package:restaurant/ordered.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
@@ -54,6 +55,17 @@ class _RestaurantMainPageState extends State<RestaurantMainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MyMap(),
+                ));
+          },
+          child: Icon(Icons.location_on),
+          backgroundColor: Colors.yellow[700],
+        ),
         appBar: AppBar(
           backgroundColor: Colors.yellow[500],
           title: Text(
