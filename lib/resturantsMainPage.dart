@@ -60,7 +60,7 @@ class _RestaurantMainPageState extends State<RestaurantMainPage> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MyMap(),
+                  builder: (context) => MyMap(this.filteredRestaurants),
                 ));
           },
           child: Icon(Icons.location_on),

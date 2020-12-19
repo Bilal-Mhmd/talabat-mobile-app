@@ -1,3 +1,5 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 class Restaurant {
   int id;
   String name;
@@ -5,8 +7,21 @@ class Restaurant {
   int rating;
   String image;
   double weight;
+  double lat;
+  double lng;
+  Marker marker;
 
-  Restaurant({this.name, this.city, this.rating, this.image, this.id});
+  Restaurant({this.name, this.city, this.rating, this.image, this.id, this.lat, this.lng}){
+    this.marker = Marker(
+      markerId: MarkerId(name),
+      position: LatLng(lat, lng),
+      infoWindow: InfoWindow(title: city),
+      icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueOrange
+      ),
+    );
+  }
+
   factory Restaurant.fromJson(dynamic jsonObject) {
     return Restaurant(
       name: jsonObject['name'] as String,
@@ -14,6 +29,8 @@ class Restaurant {
       rating: jsonObject['rating'] as int,
       image: 'http://appback.ppu.edu/static/${jsonObject['image']}',
       id: jsonObject['id'] as int,
+      lat: double.parse(jsonObject['lat']),
+      lng: double.parse(jsonObject['lng']),
     );
   }
 }
