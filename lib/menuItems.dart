@@ -16,7 +16,6 @@ class MenuItemsList extends StatefulWidget {
 
 class _MyAppState extends State<MenuItemsList> {
   List<Dish> orderedDishes = [];
-  List<int> favoriteDishesIndices = [];
   int id;
 
   _MyAppState();
@@ -86,14 +85,12 @@ class _MyAppState extends State<MenuItemsList> {
         ],
       ),
       body: Provider.of<MenuItemsModel>(context, listen: false)
-                  .getDishes()
-                  .length >
-              0
+                  .getDishes().isNotEmpty
           ? Column(
               children: [
                 Expanded(
                   child: Consumer<MenuItemsModel>(
-                    builder: (context, mentuItems, child) {
+                    builder: (context, menuItems, child) {
                       return ListView.builder(
                         itemCount:
                             Provider.of<MenuItemsModel>(context, listen: false)

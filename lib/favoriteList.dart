@@ -72,19 +72,18 @@ class _FavoriteState extends State<FavoriteList> {
             Expanded(
               child:
                   Consumer<MenuItemsModel>(builder: (context, favorite, child) {
-                return ListView.builder(
-                    itemCount:
-                        Provider.of<MenuItemsModel>(context, listen: false)
-                            .getFavoriteDishes()
-                            .length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return FavoriteItem(
-                        dish:
+                    return ListView.builder(
+                        itemCount:
                             Provider.of<MenuItemsModel>(context, listen: false)
-                                .getFavoriteDishes()[index],
-                      );
-                    });
-              }),
+                                .getFavoriteDishes()
+                                .length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return FavoriteItem(
+                            dish: Provider.of<MenuItemsModel>(context, listen: false)
+                                    .getFavoriteDishes()[index],
+                          );
+                        });
+                  }),
             ),
           ],
         ),

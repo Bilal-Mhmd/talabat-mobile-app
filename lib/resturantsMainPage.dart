@@ -42,6 +42,7 @@ class _RestaurantMainPageState extends State<RestaurantMainPage> {
 
   _RestaurantMainPageState(this.restaurants);
 
+
   @override
   void initState() {
     setState(() {

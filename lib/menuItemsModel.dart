@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:restaurant/restaurant.dart';
 import 'dish.dart';
 
-class MenuItemsModel extends ChangeNotifier {
+class MenuItemsModel extends ChangeNotifier{
   List<Dish> favoriteDishes = [];
   List<Dish> _dishes = [];
   List<Dish> orderedDishes = [];
