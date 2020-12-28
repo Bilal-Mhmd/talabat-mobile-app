@@ -1,7 +1,0 @@
-{"id":1,
-"rest_id":1,
-"name":"maklouba",
-"descr":"Good maklouba Good makloubaGood makloubaGood maklouba",
-"price":15,
-"image":"makhlouba.jpeg",
-"rating":null},
