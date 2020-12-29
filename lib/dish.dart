@@ -26,4 +26,28 @@ class Dish {
         id: jsonObject['id'],
         rest_id: jsonObject['rest_id']);
   }
+
+  factory Dish.fromMap(Map<String, dynamic> data) {
+    return Dish(
+      title: data['title'],
+      description: data['description'],
+      price: data['price'],
+      image: data['image'],
+      rating: data['rating'],
+      id: data['id'],
+      rest_id: data['rest_id']
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'title': title,
+      'description': description,
+      'price': price,
+      'image': image,
+      'rating': rating,
+      'id': id,
+      'rest_id': rest_id
+    };
+  }
 }
