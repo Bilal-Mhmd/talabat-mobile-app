@@ -35,7 +35,7 @@ class Dish {
       image: data['image'],
       rating: data['rating'],
       id: data['id'],
-      rest_id: data['rest_id']
+      rest_id: data['restid']
     );
   }
 
@@ -47,7 +47,7 @@ class Dish {
       'image': image,
       'rating': rating,
       'id': id,
-      'rest_id': rest_id
+      'restid': rest_id
     };
   }
 }

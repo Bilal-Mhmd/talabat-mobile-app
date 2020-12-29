@@ -38,9 +38,7 @@ class _WelcomeLoadingScreenState extends State<WelcomeLoadingScreen> {
         MaterialPageRoute(
             builder: (context) => RestaurantMainPage(restaurants)));
   }
-  Future<List<Dish>> getFavorites() async{
-    return await DatabaseProvider.db.favorites;
-  }
+
 
   @override
   void initState(){
@@ -51,7 +49,7 @@ class _WelcomeLoadingScreenState extends State<WelcomeLoadingScreen> {
 
    setFav() async{
       Provider.of<MenuItemsModel>(context, listen: false).
-      favoriteDishes = await getFavorites();
+      favoriteDishes = await DatabaseProvider.db.favorites;
    }
 
   @override

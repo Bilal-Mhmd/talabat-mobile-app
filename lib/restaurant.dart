@@ -16,7 +16,7 @@ class Restaurant {
     marker = Marker(
       markerId: MarkerId(name),
       position: LatLng(lat, lng),
-      infoWindow: InfoWindow(title: city),
+      infoWindow: InfoWindow(title: name),
       icon: BitmapDescriptor.defaultMarkerWithHue(
           BitmapDescriptor.hueOrange
       ),

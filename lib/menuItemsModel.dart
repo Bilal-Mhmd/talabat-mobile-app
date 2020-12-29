@@ -48,15 +48,15 @@ class MenuItemsModel extends ChangeNotifier{
   }
 
   List<Restaurant> getRestaurants() {
-    return this._restaurants;
+    return _restaurants;
   }
 
   List<Dish> getDishes() {
-    return this._dishes;
+    return _dishes;
   }
 
   List<Dish> getOrderedDihes() {
-    return this.orderedDishes;
+    return orderedDishes;
   }
 
   void orderDish(Dish dish) {
@@ -65,14 +65,14 @@ class MenuItemsModel extends ChangeNotifier{
   }
 
   void unOrderDish(Dish dish) {
-    if (this.orderedDishes.indexOf(dish) != -1) {
-      this.orderedDishes.remove(dish);
+    if (orderedDishes.contains(dish)) {
+      orderedDishes.remove(dish);
       notifyListeners();
     }
   }
 
   bool existInFavorite(Dish dish) {
-    return favoriteDishes.indexOf(dish) != -1 ? true : false;
+    return favoriteDishes.contains(dish) ? true : false;
   }
 
   void setFavorite(Dish dish) {
@@ -81,7 +81,7 @@ class MenuItemsModel extends ChangeNotifier{
       DatabaseProvider.db.removeFromFavourites(dish.id);
     } else {
       favoriteDishes.add(dish);
-      DatabaseProvider.db.insertFavorite(dish);
+      DatabaseProvider.db.insertFavorite(dish).then((value) => print(value));
     }
     notifyListeners();
   }
