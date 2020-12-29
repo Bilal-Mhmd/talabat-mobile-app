@@ -1,7 +1,9 @@
 import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
+import 'package:restaurant/database_provider.dart';
 import 'package:restaurant/restaurant.dart';
+import 'package:sqflite/sqflite.dart';
 import 'dish.dart';
 
 class MenuItemsModel extends ChangeNotifier{
@@ -9,6 +11,8 @@ class MenuItemsModel extends ChangeNotifier{
   List<Dish> _dishes = [];
   List<Dish> orderedDishes = [];
   List<Restaurant> _restaurants = [];
+
+
 
   void setDishes(List<Dish> dish) {
     this._dishes = dish;
@@ -74,8 +78,10 @@ class MenuItemsModel extends ChangeNotifier{
   void setFavorite(Dish dish) {
     if (existInFavorite(dish)) {
       favoriteDishes.remove(dish);
+      DatabaseProvider.db.removeFromFavourites(dish.id);
     } else {
       favoriteDishes.add(dish);
+      DatabaseProvider.db.insertFavorite(dish);
     }
     notifyListeners();
   }

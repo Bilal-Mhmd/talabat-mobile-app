@@ -15,14 +15,14 @@ class DatabaseProvider {
   }
 
   Future<Database> initDB() async {
-    String path = await getDatabasesPath();
-    path += 'restaurants.db';
+    var path = await getDatabasesPath();
+    path += 'favorites.db';
     return await openDatabase(
       path,
       version: version,
       onCreate: (db, version) async {
         await db.execute('''
-          create table products (
+          create table favorites (
             title text not null,
             description text not null,
             price real not null,
@@ -36,7 +36,7 @@ class DatabaseProvider {
     );
   }
 
-  Future<List<Dish>> get products async {
+  Future<List<Dish>> get favorites async {
     final db = await database;
     List<Map> result = await db.query('restaurants', orderBy: 'id asc');
     var dishes = <Dish>[];
@@ -46,32 +46,27 @@ class DatabaseProvider {
     return dishes;
   }
 
-  Future insert(Dish dish) async {
+  Future insertFavorite(Dish dish) async {
     final db = await database;
-
-    return await db.insert('restaurants', dish.toMap());
+    return await db.insert('favorites', dish.toMap());
   }
 
-  Future<Dish> getProduct(int id) async {
+  Future<Dish> getFavourites(int id) async {
     final db = await database;
     List<Map> dish =
-    await db.query('products', where: 'id=?', whereArgs: [id]);
+    await db.query('favorites', where: 'id=?', whereArgs: [id]);
     return Dish.fromMap(dish[0]);
   }
 
   Future removeAll() async {
     final db = await database;
-    return await db.delete('dishes');
+    return await db.delete('favorites');
   }
 
-  Future<int> removeRestaurant(int id) async {
+  Future<int> removeFromFavourites(int id) async {
     final db = await database;
-    return await db.delete('dishes', where: 'id=?', whereArgs: [id]);
+    return await db.delete('favorites', where: 'id=?', whereArgs: [id]);
   }
 
-  Future<int> updateProduct(Dish dish) async {
-    final db = await database;
-    return await db.update('restaurants', dish.toMap(),
-        where: 'id=?', whereArgs: [dish.id]);
-  }
+
 }

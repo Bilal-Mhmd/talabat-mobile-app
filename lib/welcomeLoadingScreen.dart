@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:restaurant/database_provider.dart';
+import 'package:restaurant/dish.dart';
 import 'package:restaurant/menuItemsModel.dart';
 import 'package:restaurant/resturantsMainPage.dart';
 import 'restaurant.dart';
@@ -36,12 +38,21 @@ class _WelcomeLoadingScreenState extends State<WelcomeLoadingScreen> {
         MaterialPageRoute(
             builder: (context) => RestaurantMainPage(restaurants)));
   }
+  Future<List<Dish>> getFavorites() async{
+    return await DatabaseProvider.db.favorites;
+  }
 
   @override
-  void initState() {
+  void initState(){
     super.initState();
     fetchRestaurants();
+    setFav();
   }
+
+   setFav() async{
+      Provider.of<MenuItemsModel>(context, listen: false).
+      favoriteDishes = await getFavorites();
+   }
 
   @override
   Widget build(BuildContext context) {

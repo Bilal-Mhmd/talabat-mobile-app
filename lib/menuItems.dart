@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant/database_provider.dart';
 import 'package:restaurant/item.dart';
 import 'package:restaurant/favoriteList.dart';
 import 'package:restaurant/menuItemsModel.dart';
@@ -25,6 +26,7 @@ class _MyAppState extends State<MenuItemsList> {
         Provider.of<MenuItemsModel>(context, listen: false).getDishes()[index]);
     setState(() {});
   }
+
 
   @override
   Widget build(BuildContext context) {
