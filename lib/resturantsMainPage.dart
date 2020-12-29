@@ -36,18 +36,18 @@ class Waiter {
 }
 
 class _RestaurantMainPageState extends State<RestaurantMainPage> {
+  _RestaurantMainPageState(this.restaurants);
   List<Restaurant> restaurants = [];
   List<Restaurant> filteredRestaurants = [];
-  final _waiter = Waiter(milliseconds: 500);
 
-  _RestaurantMainPageState(this.restaurants);
+  final _waiter = Waiter(milliseconds: 500);
 
 
   @override
   void initState() {
     setState(() {
-       this.restaurants.sort((a,b)=>a.rating.compareTo(b.rating));
-      this.filteredRestaurants = this.restaurants;
+      restaurants.sort((a,b)=>a.rating.compareTo(b.rating));
+      filteredRestaurants = restaurants;
     });
     super.initState();
   }
@@ -56,22 +56,38 @@ class _RestaurantMainPageState extends State<RestaurantMainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MyMap(this.filteredRestaurants),
-                ));
-          },
-          child: Icon(Icons.location_on),
-          backgroundColor: Colors.yellow[700],
+        floatingActionButton: Align(
+          alignment: Alignment.bottomLeft,
+          child: Container(
+            margin: EdgeInsets.fromLTRB(25, 0, 0, 0),
+            child: FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MyMap(this.filteredRestaurants),
+                    ));
+              },
+              child: Icon(Icons.location_on),
+              backgroundColor: Colors.yellow[700],
+
+            ),
+          ),
         ),
         appBar: AppBar(
           backgroundColor: Colors.yellow[500],
-          title: Text(
-            'Restaurant List',
-            style: TextStyle(fontSize: 14, color: Colors.black),
+          title: Row(
+            children: [
+              Icon(
+                Icons.restaurant,
+                size: 18,
+                color: Colors.black,
+              ),
+              Text(
+                ' Restaurants',
+                style: TextStyle(fontSize: 14, color: Colors.black),
+              ),
+            ],
           ),
           actions: [
             RaisedButton(
@@ -85,7 +101,7 @@ class _RestaurantMainPageState extends State<RestaurantMainPage> {
                     Icons.favorite_border,
                     size: 20,
                   ),
-                  Text(' Favourite List'),
+                  Text('FavouriteList'),
                 ],
               ),
               onPressed: () {
@@ -107,7 +123,7 @@ class _RestaurantMainPageState extends State<RestaurantMainPage> {
                     Icons.bookmark_border,
                     size: 20,
                   ),
-                  Text(' Ordered List'),
+                  Text('OrderedList'),
                 ],
               ),
               onPressed: () {

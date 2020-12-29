@@ -17,10 +17,17 @@ class MyMap extends StatefulWidget {
 class _MyMapState extends State<MyMap> {
   List<Restaurant> restaurants = [];
   _MyMapState(this.restaurants);
+  Set<Marker> markers  = {hebronMarker};
 
   GoogleMapController mapController;
 
   final LatLng _center = const LatLng(45.521563, -122.677433);
+
+  @override
+  void initState() {
+    restaurants.forEach((res) => this.markers.add(res.marker));
+    super.initState();
+  }
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -41,28 +48,10 @@ class _MyMapState extends State<MyMap> {
               onMapCreated: _onMapCreated,
               initialCameraPosition: CameraPosition(
                 target: LatLng(31.533702181365562, 35.10008344499284),
-                zoom: 12.0,
+                zoom: 8.0,
               ),
               markers: markers
             ),
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Container(
-                margin: EdgeInsets.symmetric(vertical: 20),
-                height: 150,
-                child: ListView.builder(
-                  reverse: true,
-                  itemCount: restaurants.length,
-                  itemBuilder: (BuildContext context, index) {
-                    markers.add(restaurants[index].marker);
-                    return Container(
-                        margin: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                        child: RestaurantItem(restaurants[index])
-                    );
-                  },
-                )
-              ),
-            )
 
           ],
         ),
@@ -72,12 +61,11 @@ class _MyMapState extends State<MyMap> {
 
 }
 
-Set<Marker> markers  = {hepronMarker};
 
-Marker hepronMarker = Marker(
-    markerId: MarkerId('hepron'),
+Marker hebronMarker = Marker(
+    markerId: MarkerId('hebron'),
     position: LatLng(31.533702181365562, 35.10008344499284),
-    infoWindow: InfoWindow(title: "Hepron City"),
+    infoWindow: InfoWindow(title: 'Hebron'),
     icon: BitmapDescriptor.defaultMarkerWithHue(
       BitmapDescriptor.hueOrange
     ),

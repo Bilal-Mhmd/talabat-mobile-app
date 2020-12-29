@@ -17,6 +17,7 @@ class FavoriteList extends StatefulWidget {
 }
 
 class _FavoriteState extends State<FavoriteList> {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,7 +26,7 @@ class _FavoriteState extends State<FavoriteList> {
         appBar: AppBar(
           title: Text(
             'Favourite List',
-            style: TextStyle(color: Colors.black, fontSize: 20),
+            style: TextStyle(color: Colors.black, fontSize: 18),
           ),
           backgroundColor: Colors.yellow[500],
           actions: [
@@ -41,7 +42,7 @@ class _FavoriteState extends State<FavoriteList> {
                       size: 20,
                     ),
                     Text('OrderedPage',
-                        style: TextStyle(fontSize: 15, color: Colors.black)),
+                        style: TextStyle(fontSize: 17, color: Colors.black)),
                   ],
                 ),
                 onPressed: () {
@@ -58,9 +59,17 @@ class _FavoriteState extends State<FavoriteList> {
                 hoverColor: Colors.yellow[500],
                 splashColor: Colors.yellow[500],
                 focusColor: Colors.yellow[400],
-                child: Text(
-                  'Back',
-                  style: TextStyle(fontSize: 20),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.backspace_outlined,
+                      size: 20,
+                    ),
+                    Text(
+                      ' Back',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ],
                 ),
                 onPressed: () {
                   Navigator.pop(context);

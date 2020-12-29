@@ -11,8 +11,9 @@ class Restaurant {
   double lng;
   Marker marker;
 
+  // ignore: sort_constructors_first
   Restaurant({this.name, this.city, this.rating, this.image, this.id, this.lat, this.lng}){
-    this.marker = Marker(
+    marker = Marker(
       markerId: MarkerId(name),
       position: LatLng(lat, lng),
       infoWindow: InfoWindow(title: city),
@@ -33,4 +34,9 @@ class Restaurant {
       lng: double.parse(jsonObject['lng']),
     );
   }
+
 }
+
+
+
+
